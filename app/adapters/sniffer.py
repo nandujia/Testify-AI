@@ -87,34 +87,48 @@ class DataSniffer:
                 print(f"[嗅探] 拦截请求: {method} {url[:80]}...")
                 print(f"       匹配规则: {matches}")
                 
-                # 继续请求
-                response = await route.fetch()
-                body = await response.text()
-                
-                # 尝试解析JSON
                 try:
-                    parsed_body = json.loads(body)
-                except:
-                    parsed_body = body
-                
-                # 记录嗅探数据
-                sniffed = SniffedData(
-                    url=url,
-                    method=method,
-                    status=response.status,
-                    headers=dict(response.headers),
-                    body=parsed_body,
-                    source=matches[0] if matches else "unknown"
-                )
-                
-                # 如果是JSON，尝试解析
-                if isinstance(parsed_body, dict):
-                    sniffed.parsed = await self._parse_data(sniffed)
-                
-                self.sniffed_data.append(sniffed)
-                
-                # 完成请求
-                await route.fulfill(response=response, body=body)
+                    # 继续请求
+                    response = await route.fetch()
+                    
+                    # 检查编码，跳过 deflate（Playwright解压有bug）
+                    content_encoding = response.headers.get('content-encoding', '')
+                    if 'deflate' in content_encoding.lower():
+                        print(f"       [跳过] deflate编码，等待浏览器处理")
+                        await route.continue_()
+                        return
+                    
+                    body = await response.text()
+                    
+                    # 尝试解析JSON
+                    try:
+                        parsed_body = json.loads(body)
+                    except:
+                        parsed_body = body
+                    
+                    # 记录嗅探数据
+                    sniffed = SniffedData(
+                        url=url,
+                        method=method,
+                        status=response.status,
+                        headers=dict(response.headers),
+                        body=parsed_body,
+                        source=matches[0] if matches else "unknown"
+                    )
+                    
+                    # 如果是JSON，尝试解析
+                    if isinstance(parsed_body, dict):
+                        sniffed.parsed = await self._parse_data(sniffed)
+                    
+                    self.sniffed_data.append(sniffed)
+                    
+                    # 完成请求
+                    await route.fulfill(response=response, body=body)
+                    
+                except Exception as e:
+                    # 遇到错误时继续请求，不要阻塞
+                    print(f"       [错误] {e}")
+                    await route.continue_()
             else:
                 # 不拦截，直接继续
                 await route.continue_()
@@ -317,7 +331,7 @@ class DataSniffer:
         self.register_pattern("data_endpoint", r"data|content|page")
     
     async def _trigger_data_loading(self, page: Page):
-        """触发数据加载"""
+        """触发数据加载 + JS注入获取sitemap"""
         # 滚动页面
         for i in range(5):
             await page.evaluate(f"window.scrollBy(0, {800 * (i+1)})")
@@ -331,6 +345,130 @@ class DataSniffer:
                 await page.wait_for_timeout(200)
         except:
             pass
+        
+        # === JS注入获取sitemap（绕过deflate解压问题）===
+        print("   注入JS获取页面目录...")
+        
+        # 等待iframe加载
+        await page.wait_for_timeout(3000)
+        
+        try:
+            # 方法1: 在主页面查找 sitemap
+            sitemap_result = await page.evaluate("""
+                () => {
+                    const pages = [];
+                    
+                    // 从 $axure.document.sitemap 获取
+                    if (window.$axure && window.$axure.document) {
+                        const sitemap = window.$axure.document.sitemap;
+                        if (sitemap && sitemap.rootNodes) {
+                            function extractPages(nodes) {
+                                nodes.forEach(node => {
+                                    if (node.pageName) {
+                                        pages.push(node.pageName);
+                                    }
+                                    if (node.children && node.children.length > 0) {
+                                        extractPages(node.children);
+                                    }
+                                });
+                            }
+                            extractPages(sitemap.rootNodes);
+                            return { method: 'axure_sitemap_main', pages: pages };
+                        }
+                    }
+                    
+                    // 从DOM获取
+                    const navItems = document.querySelectorAll('.sitemapNode, .treeNode, #sitemapTree li');
+                    navItems.forEach(item => {
+                        const text = item.innerText || item.textContent;
+                        if (text && text.trim()) {
+                            const lines = text.trim().split('\\n');
+                            if (lines[0]) {
+                                pages.push(lines[0]);
+                            }
+                        }
+                    });
+                    
+                    if (pages.length > 0) {
+                        return { method: 'dom_main', pages: pages };
+                    }
+                    
+                    return null;
+                }
+            """)
+            
+            if sitemap_result and sitemap_result.get('pages'):
+                pages = sitemap_result['pages']
+                print(f"   主页面JS注入成功: {len(pages)} 个页面")
+                
+                self.sniffed_data.append(SniffedData(
+                    url="js://sitemap",
+                    method="JS_INJECT",
+                    status=200,
+                    headers={},
+                    body={"pages": pages, "method": sitemap_result['method']},
+                    source="js_sitemap"
+                ))
+                return
+            else:
+                print("   主页面: 未找到数据")
+                
+        except Exception as e:
+            print(f"   主页面JS注入失败: {e}")
+        
+        # 方法2: 在iframe中查找
+        try:
+            # 获取mainFrame iframe
+            main_frame = page.frame_locator('#mainFrame')
+            
+            # 等待iframe加载
+            await page.wait_for_timeout(2000)
+            
+            # 在iframe中执行JS
+            sitemap_result = await main_frame.locator('body').evaluate("""
+                () => {
+                    const pages = [];
+                    
+                    // 从 $axure.document.sitemap 获取
+                    if (window.$axure && window.$axure.document) {
+                        const sitemap = window.$axure.document.sitemap;
+                        if (sitemap && sitemap.rootNodes) {
+                            function extractPages(nodes) {
+                                nodes.forEach(node => {
+                                    if (node.pageName) {
+                                        pages.push(node.pageName);
+                                    }
+                                    if (node.children && node.children.length > 0) {
+                                        extractPages(node.children);
+                                    }
+                                });
+                            }
+                            extractPages(sitemap.rootNodes);
+                            return { method: 'axure_sitemap_iframe', pages: pages };
+                        }
+                    }
+                    
+                    return null;
+                }
+            """)
+            
+            if sitemap_result and sitemap_result.get('pages'):
+                pages = sitemap_result['pages']
+                print(f"   iframe JS注入成功: {len(pages)} 个页面")
+                
+                self.sniffed_data.append(SniffedData(
+                    url="js://sitemap/iframe",
+                    method="JS_INJECT",
+                    status=200,
+                    headers={},
+                    body={"pages": pages, "method": sitemap_result['method']},
+                    source="js_sitemap"
+                ))
+            else:
+                print("   iframe: 未找到数据")
+                
+        except Exception as e:
+            print(f"   iframe JS注入失败: {e}")
 
 
 # 便捷函数
