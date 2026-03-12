@@ -2,14 +2,17 @@ version: '3.8'
 
 services:
   backend:
-    build: ./backend
+    build: .
     ports:
       - "8000:8000"
     volumes:
       - ./exports:/app/exports
       - ./uploads:/app/uploads
+      - ./data:/app/data
     environment:
       - DEBUG=true
+    env_file:
+      - .env
     restart: unless-stopped
 
   frontend:

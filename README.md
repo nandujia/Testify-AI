@@ -121,11 +121,14 @@ docker-compose up -d
 ### 本地开发
 
 ```bash
-# 后端
-cd backend
+# 安装依赖
 pip install -r requirements.txt
+
+# 配置环境变量
 cp .env.example .env
 # 编辑 .env 配置 LLM_API_KEY
+
+# 运行后端
 uvicorn app.main:app --reload --port 8000
 
 # 前端
@@ -139,54 +142,57 @@ npm run dev
 ## 📁 项目结构
 
 ```
-backend/app/
-├── core/                    # 核心模块 (v3.0)
-│   ├── intent_agent.py     # 意图识别
-│   ├── orchestrator.py     # 调度中心
-│   └── session.py          # 会话管理
+demand-test-platform/
+├── app/                     # 主应用代码
+│   ├── core/               # 核心模块 (v3.0)
+│   │   ├── intent_agent.py # 意图识别
+│   │   ├── orchestrator.py # 调度中心
+│   │   └── session.py      # 会话管理
+│   │
+│   ├── skills/             # 技能系统 (v3.0)
+│   │   ├── base.py         # 技能基类
+│   │   ├── registry.py     # 技能注册表
+│   │   ├── analyze_skill.py
+│   │   ├── demand_extractor_skill.py
+│   │   ├── full_extractor.py
+│   │   ├── testcase_skill.py
+│   │   ├── export_skill.py
+│   │   └── ...
+│   │
+│   ├── llm/                # LLM 适配层
+│   │   ├── base.py         # 抽象基类
+│   │   ├── factory.py      # 工厂模式
+│   │   └── custom.py       # 自定义模型
+│   │
+│   ├── knowledge/          # 知识库模块
+│   │   ├── rag.py
+│   │   ├── embeddings.py
+│   │   └── vector_store.py
+│   │
+│   ├── services/
+│   │   ├── config_service.py
+│   │   ├── learning_service.py
+│   │   └── crawler/
+│   │
+│   ├── api/
+│   │   ├── chat.py
+│   │   ├── config.py
+│   │   └── learning.py
+│   │
+│   └── models/
+│       └── llm_config.py
 │
-├── skills/                  # 技能系统 (v3.0)
-│   ├── base.py             # 技能基类
-│   ├── registry.py         # 技能注册表
-│   ├── analyze_skill.py    # 分析技能
-│   ├── demand_extractor_skill.py # 需求提取技能
-│   ├── testcase_skill.py   # 测试用例技能
-│   ├── export_skill.py     # 导出技能
-│   ├── qa_skill.py         # 问答技能
-│   └── knowledge_skill.py  # 知识库技能
+├── data/                    # 数据存储
+├── exports/                 # 导出目录
+├── uploads/                 # 上传目录
 │
-├── llm/                     # LLM 适配层
-│   ├── base.py             # 抽象基类
-│   ├── factory.py          # 工厂模式
-│   ├── glm.py              # 智谱 GLM
-│   ├── gpt.py              # OpenAI
-│   ├── qwen.py             # 通义千问
-│   ├── ernie.py            # 文心一言
-│   └── custom.py           # 自定义模型
+├── frontend/                # 前端代码
+├── docs/                    # 文档
 │
-├── knowledge/               # 知识库模块
-│   ├── rag.py              # RAG 知识库
-│   ├── embeddings.py       # 嵌入引擎
-│   └── vector_store.py     # 向量存储
-│
-├── services/
-│   ├── config_service.py   # 配置服务 (v3.0)
-│   ├── learning_service.py # 学习服务 (v3.0)
-│   ├── bug_fix_service.py  # 自动修复服务
-│   ├── crawler/            # 爬虫服务
-│   │   └── modao_crawler.py # 墨刀爬虫
-│   ├── extractor/          # 导出服务
-│   └── generator/          # 用例生成
-│
-├── api/
-│   ├── chat.py             # 对话 API (v3.0)
-│   ├── config.py           # 配置 API (v3.0)
-│   ├── learning.py         # 学习 API (v3.0)
-│   └── ...
-│
-└── models/
-    ├── llm_config.py       # LLM 配置模型 (v3.0)
-    └── schemas.py
+├── Dockerfile
+├── docker-compose.yml
+├── requirements.txt
+└── .env.example
 ```
 
 ---

@@ -1,11 +1,11 @@
+# DemandTest Platform Backend Dockerfile
 FROM python:3.11-slim
 
 WORKDIR /app
 
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
-    wget \
-    gnupg \
+    gcc \
     && rm -rf /var/lib/apt/lists/*
 
 # Install Python dependencies
@@ -16,14 +16,15 @@ RUN pip install --no-cache-dir -r requirements.txt
 RUN playwright install chromium
 RUN playwright install-deps chromium
 
-# Copy application
-COPY . .
+# Copy application code
+COPY app/ ./app/
+COPY data/ ./data/
 
-# Create directories
-RUN mkdir -p /app/uploads /app/exports
+# Create necessary directories
+RUN mkdir -p exports uploads data/config data/sessions data/knowledge data/learning
 
 # Expose port
 EXPOSE 8000
 
-# Run application
+# Run the application
 CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]

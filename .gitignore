@@ -24,6 +24,7 @@ wheels/
 venv/
 ENV/
 env/
+.venv/
 
 # IDE
 .vscode/
@@ -39,12 +40,16 @@ yarn-error.log*
 
 # Build
 frontend/dist/
-backend/exports/
-backend/uploads/
+
+# Data & Exports
+exports/
+uploads/
+data/
 
 # Environment
 .env
 .env.local
+.env.*.local
 
 # OS
 .DS_Store
@@ -53,3 +58,6 @@ Thumbs.db
 # Logs
 *.log
 logs/
+
+# Playwright
+.playwright/

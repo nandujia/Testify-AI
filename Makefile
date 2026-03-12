@@ -1,8 +1,8 @@
-.PHONY: install dev build run clean
+.PHONY: install dev build run stop logs clean backend-dev frontend-dev
 
 # 安装依赖
 install:
-	cd backend && pip install -r requirements.txt
+	pip install -r requirements.txt
 	cd frontend && npm install
 
 # 开发模式
@@ -28,12 +28,21 @@ logs:
 # 清理
 clean:
 	docker-compose down -v
-	rm -rf backend/__pycache__ backend/app/__pycache__ backend/exports/*
+	rm -rf app/__pycache__ exports/* uploads/*
 
 # 后端开发
 backend-dev:
-	cd backend && uvicorn app.main:app --reload --port 8000
+	uvicorn app.main:app --reload --port 8000
 
 # 前端开发
 frontend-dev:
 	cd frontend && npm run dev
+
+# 测试
+test:
+	pytest tests/ -v
+
+# 格式化代码
+format:
+	black app/
+	isort app/
