@@ -1,0 +1,612 @@
+{
+  "session_id": "c911e1ed-690d-437d-a631-d4233b2a73ae",
+  "created_at": "2026-03-12 15:11:55.997593",
+  "updated_at": "2026-03-12 15:12:09.394963",
+  "current_url": "https://modao.cc/axbox/share/XlXtruAPtb05sbhqzcksAb",
+  "current_platform": "modao",
+  "analyzed_pages": [
+    {
+      "id": "1",
+      "name": "H5引导下载APP弹窗（修改）",
+      "status": "修改"
+    },
+    {
+      "id": "2",
+      "name": "SMS回归者领取奖励说明（修改）",
+      "status": "修改"
+    },
+    {
+      "id": "3",
+      "name": "SMS执行者奖励领取侧边弹窗（修改）",
+      "status": "修改"
+    },
+    {
+      "id": "4",
+      "name": "VIP等级说明（修改）",
+      "status": "修改"
+    },
+    {
+      "id": "5",
+      "name": "h5引导下载app弹窗（修改）",
+      "status": "修改"
+    },
+    {
+      "id": "6",
+      "name": "im（修改）",
+      "status": "修改"
+    },
+    {
+      "id": "7",
+      "name": "my_reward",
+      "status": null
+    },
+    {
+      "id": "8",
+      "name": "sms回归者领取奖励说明（修改）",
+      "status": "修改"
+    },
+    {
+      "id": "9",
+      "name": "sms执行者奖励领取侧边弹窗（修改）",
+      "status": "修改"
+    },
+    {
+      "id": "10",
+      "name": "vip",
+      "status": null
+    },
+    {
+      "id": "11",
+      "name": "vip等级说明（修改）",
+      "status": "修改"
+    },
+    {
+      "id": "12",
+      "name": "下级详情",
+      "status": null
+    },
+    {
+      "id": "13",
+      "name": "个人信息（修改）",
+      "status": "修改"
+    },
+    {
+      "id": "14",
+      "name": "亏损金钱包活动",
+      "status": null
+    },
+    {
+      "id": "15",
+      "name": "代理奖金记录（新增）",
+      "status": "新增"
+    },
+    {
+      "id": "16",
+      "name": "代理规则说明（修改）",
+      "status": "修改"
+    },
+    {
+      "id": "17",
+      "name": "代理（新增）",
+      "status": "新增"
+    },
+    {
+      "id": "18",
+      "name": "倒计时钱包活动规则说明",
+      "status": null
+    },
+    {
+      "id": "19",
+      "name": "充值成功_失败弹窗",
+      "status": null
+    },
+    {
+      "id": "20",
+      "name": "充值通道教程（修改）",
+      "status": "修改"
+    },
+    {
+      "id": "21",
+      "name": "充值（修改）",
+      "status": "修改"
+    },
+    {
+      "id": "22",
+      "name": "充提异常单反馈处理通知弹窗",
+      "status": null
+    },
+    {
+      "id": "23",
+      "name": "充提记录",
+      "status": null
+    },
+    {
+      "id": "24",
+      "name": "兑换码（修改）",
+      "status": "修改"
+    },
+    {
+      "id": "25",
+      "name": "分享好友（修改）",
+      "status": "修改"
+    },
+    {
+      "id": "26",
+      "name": "单个活动奖励已领取通知的品牌样式",
+      "status": null
+    },
+    {
+      "id": "27",
+      "name": "后台已处理-用户重新提交（充值）",
+      "status": null
+    },
+    {
+      "id": "28",
+      "name": "后台已处理-用户重新提交（提现）",
+      "status": null
+    },
+    {
+      "id": "29",
+      "name": "品牌",
+      "status": null
+    },
+    {
+      "id": "30",
+      "name": "图片预览",
+      "status": null
+    },
+    {
+      "id": "31",
+      "name": "宝箱升级动画",
+      "status": null
+    },
+    {
+      "id": "32",
+      "name": "宝箱开箱动画",
+      "status": null
+    },
+    {
+      "id": "33",
+      "name": "宝箱开箱通知悬浮窗",
+      "status": null
+    },
+    {
+      "id": "34",
+      "name": "宝箱规则说明（修改）",
+      "status": "修改"
+    },
+    {
+      "id": "35",
+      "name": "帮助中心",
+      "status": null
+    },
+    {
+      "id": "36",
+      "name": "常规充值钱包活动",
+      "status": null
+    },
+    {
+      "id": "37",
+      "name": "弹窗类型（新增）",
+      "status": "新增"
+    },
+    {
+      "id": "38",
+      "name": "忘记密码",
+      "status": null
+    },
+    {
+      "id": "39",
+      "name": "快捷充值弹层（修改）",
+      "status": "修改"
+    },
+    {
+      "id": "40",
+      "name": "我的排行榜奖励记录",
+      "status": null
+    },
+    {
+      "id": "41",
+      "name": "我的活动（新增）",
+      "status": "新增"
+    },
+    {
+      "id": "42",
+      "name": "所有活动（新增）",
+      "status": "新增"
+    },
+    {
+      "id": "43",
+      "name": "排行榜",
+      "status": null
+    },
+    {
+      "id": "44",
+      "name": "排行榜规则（修改）",
+      "status": "修改"
+    },
+    {
+      "id": "45",
+      "name": "提交utr",
+      "status": null
+    },
+    {
+      "id": "46",
+      "name": "提现失败修改银行卡信息",
+      "status": null
+    },
+    {
+      "id": "47",
+      "name": "提现超时补偿奖励领取通知弹窗",
+      "status": null
+    },
+    {
+      "id": "48",
+      "name": "搜索游戏",
+      "status": null
+    },
+    {
+      "id": "49",
+      "name": "新人礼包规则说明（新增）",
+      "status": "新增"
+    },
+    {
+      "id": "50",
+      "name": "新人礼包（新增）",
+      "status": "新增"
+    },
+    {
+      "id": "51",
+      "name": "更改密码（修改）",
+      "status": "修改"
+    },
+    {
+      "id": "52",
+      "name": "最新一期开奖记录",
+      "status": null
+    },
+    {
+      "id": "53",
+      "name": "某分类下的所有游戏",
+      "status": null
+    },
+    {
+      "id": "54",
+      "name": "查看品牌描述弹层",
+      "status": null
+    },
+    {
+      "id": "55",
+      "name": "每日邀请活动",
+      "status": null
+    },
+    {
+      "id": "56",
+      "name": "每日邀请规则说明",
+      "status": null
+    },
+    {
+      "id": "57",
+      "name": "每日首充钱包活动",
+      "status": null
+    },
+    {
+      "id": "58",
+      "name": "汇总活动奖励今日未领取通知品牌样式",
+      "status": null
+    },
+    {
+      "id": "59",
+      "name": "汇总活动奖励明日可领取通知品牌样式",
+      "status": null
+    },
+    {
+      "id": "60",
+      "name": "注册（修改）",
+      "status": "修改"
+    },
+    {
+      "id": "61",
+      "name": "活动的品牌样式",
+      "status": null
+    },
+    {
+      "id": "62",
+      "name": "游戏的品牌样式",
+      "status": null
+    },
+    {
+      "id": "63",
+      "name": "游戏（修改）",
+      "status": "修改"
+    },
+    {
+      "id": "64",
+      "name": "点击账户钱包icon弹充值提现（修改）",
+      "status": "修改"
+    },
+    {
+      "id": "65",
+      "name": "点击账户钱包下拉icon弹钱包弹层（新增）",
+      "status": "新增"
+    },
+    {
+      "id": "66",
+      "name": "用户协议（新增）",
+      "status": "新增"
+    },
+    {
+      "id": "67",
+      "name": "登录",
+      "status": null
+    },
+    {
+      "id": "68",
+      "name": "短信任务",
+      "status": null
+    },
+    {
+      "id": "69",
+      "name": "短信任务规则说明（修改）",
+      "status": "修改"
+    },
+    {
+      "id": "70",
+      "name": "硬币余额规则弹层（新增）",
+      "status": "新增"
+    },
+    {
+      "id": "71",
+      "name": "站内信",
+      "status": null
+    },
+    {
+      "id": "72",
+      "name": "站内信奖励弹窗",
+      "status": null
+    },
+    {
+      "id": "73",
+      "name": "站内信详情",
+      "status": null
+    },
+    {
+      "id": "74",
+      "name": "系统公告弹窗",
+      "status": null
+    },
+    {
+      "id": "75",
+      "name": "累充转盘",
+      "status": null
+    },
+    {
+      "id": "76",
+      "name": "绑定邀请码",
+      "status": null
+    },
+    {
+      "id": "77",
+      "name": "编辑个人信息",
+      "status": null
+    },
+    {
+      "id": "78",
+      "name": "置顶消息",
+      "status": null
+    },
+    {
+      "id": "79",
+      "name": "群聊管理",
+      "status": null
+    },
+    {
+      "id": "80",
+      "name": "群聊详情",
+      "status": null
+    },
+    {
+      "id": "81",
+      "name": "联系客服",
+      "status": null
+    },
+    {
+      "id": "82",
+      "name": "菜单（左侧边栏）（修改）",
+      "status": "修改"
+    },
+    {
+      "id": "83",
+      "name": "视频录制",
+      "status": null
+    },
+    {
+      "id": "84",
+      "name": "视频预览",
+      "status": null
+    },
+    {
+      "id": "85",
+      "name": "评论弹层",
+      "status": null
+    },
+    {
+      "id": "86",
+      "name": "资金明细（修改）",
+      "status": "修改"
+    },
+    {
+      "id": "87",
+      "name": "转盘规则说明（修改）",
+      "status": "修改"
+    },
+    {
+      "id": "88",
+      "name": "转盘记录",
+      "status": null
+    },
+    {
+      "id": "89",
+      "name": "退出登录",
+      "status": null
+    },
+    {
+      "id": "90",
+      "name": "选择信息",
+      "status": null
+    },
+    {
+      "id": "91",
+      "name": "选择充值通道弹窗（修改）",
+      "status": "修改"
+    },
+    {
+      "id": "92",
+      "name": "银行卡信息",
+      "status": null
+    },
+    {
+      "id": "93",
+      "name": "首次进入代理页面先展示代理视频讲解弹窗",
+      "status": null
+    },
+    {
+      "id": "94",
+      "name": "首页-已登录（修改）",
+      "status": "修改"
+    },
+    {
+      "id": "95",
+      "name": "首页-未登录（新增）",
+      "status": "新增"
+    }
+  ],
+  "test_cases": [
+    {
+      "id": "TC_VIP_001",
+      "title": "正向-VIP等级说明成功",
+      "preconditions": "1. 用户已登录\n2. 系统正常运行",
+      "steps": "1. 进入VIP等级说明页面\n2. 填写有效信息\n3. 点击提交",
+      "expected_results": "1. 页面正常加载\n2. 信息填写成功\n3. 操作成功",
+      "priority": "P1",
+      "type": "positive",
+      "remarks": null
+    },
+    {
+      "id": "TC_VIP_002",
+      "title": "逆向-VIP等级说明-必填项为空",
+      "preconditions": "1. 用户已登录",
+      "steps": "1. 进入VIP等级说明页面\n2. 不填写必填项\n3. 点击提交",
+      "expected_results": "1. 页面正常加载\n2. 必填项标红\n3. Toast提示'请填写必填项'",
+      "priority": "P1",
+      "type": "negative",
+      "remarks": null
+    },
+    {
+      "id": "TC_VIP_003",
+      "title": "逆向-VIP等级说明-格式错误",
+      "preconditions": "1. 用户已登录",
+      "steps": "1. 进入VIP等级说明页面\n2. 输入错误格式\n3. 点击提交",
+      "expected_results": "1. 页面正常加载\n2. 格式校验失败\n3. Toast提示'格式错误'",
+      "priority": "P1",
+      "type": "negative",
+      "remarks": null
+    },
+    {
+      "id": "TC_COMMON_004",
+      "title": "正向-vip成功",
+      "preconditions": "1. 用户已登录\n2. 系统正常运行",
+      "steps": "1. 进入vip页面\n2. 填写有效信息\n3. 点击提交",
+      "expected_results": "1. 页面正常加载\n2. 信息填写成功\n3. 操作成功",
+      "priority": "P1",
+      "type": "positive",
+      "remarks": null
+    },
+    {
+      "id": "TC_COMMON_005",
+      "title": "逆向-vip-必填项为空",
+      "preconditions": "1. 用户已登录",
+      "steps": "1. 进入vip页面\n2. 不填写必填项\n3. 点击提交",
+      "expected_results": "1. 页面正常加载\n2. 必填项标红\n3. Toast提示'请填写必填项'",
+      "priority": "P1",
+      "type": "negative",
+      "remarks": null
+    },
+    {
+      "id": "TC_COMMON_006",
+      "title": "逆向-vip-格式错误",
+      "preconditions": "1. 用户已登录",
+      "steps": "1. 进入vip页面\n2. 输入错误格式\n3. 点击提交",
+      "expected_results": "1. 页面正常加载\n2. 格式校验失败\n3. Toast提示'格式错误'",
+      "priority": "P1",
+      "type": "negative",
+      "remarks": null
+    },
+    {
+      "id": "TC_COMMON_007",
+      "title": "正向-vip等级说明成功",
+      "preconditions": "1. 用户已登录\n2. 系统正常运行",
+      "steps": "1. 进入vip等级说明页面\n2. 填写有效信息\n3. 点击提交",
+      "expected_results": "1. 页面正常加载\n2. 信息填写成功\n3. 操作成功",
+      "priority": "P1",
+      "type": "positive",
+      "remarks": null
+    },
+    {
+      "id": "TC_COMMON_008",
+      "title": "逆向-vip等级说明-必填项为空",
+      "preconditions": "1. 用户已登录",
+      "steps": "1. 进入vip等级说明页面\n2. 不填写必填项\n3. 点击提交",
+      "expected_results": "1. 页面正常加载\n2. 必填项标红\n3. Toast提示'请填写必填项'",
+      "priority": "P1",
+      "type": "negative",
+      "remarks": null
+    },
+    {
+      "id": "TC_COMMON_009",
+      "title": "逆向-vip等级说明-格式错误",
+      "preconditions": "1. 用户已登录",
+      "steps": "1. 进入vip等级说明页面\n2. 输入错误格式\n3. 点击提交",
+      "expected_results": "1. 页面正常加载\n2. 格式校验失败\n3. Toast提示'格式错误'",
+      "priority": "P1",
+      "type": "negative",
+      "remarks": null
+    }
+  ],
+  "exported_files": [
+    "./exports/测试用例_20260312_151209.xlsx"
+  ],
+  "messages": [
+    {
+      "role": "user",
+      "content": "分析 https://modao.cc/axbox/share/XlXtruAPtb05sbhqzcksAb",
+      "timestamp": "2026-03-12T15:11:55.998164"
+    },
+    {
+      "role": "assistant",
+      "content": "已分析 墨刀 原型，提取 95 个页面。\n\n请选择需要生成测试用例的页面，例如：选择 VIP、VIP等级说明",
+      "timestamp": "2026-03-12T15:12:09.289973"
+    },
+    {
+      "role": "user",
+      "content": "选择 VIP、VIP等级说明",
+      "timestamp": "2026-03-12T15:12:09.291519"
+    },
+    {
+      "role": "assistant",
+      "content": "已为 3 个页面生成 9 条测试用例（positive: 3, negative: 6）",
+      "timestamp": "2026-03-12T15:12:09.294017"
+    },
+    {
+      "role": "user",
+      "content": "导出Excel",
+      "timestamp": "2026-03-12T15:12:09.294942"
+    },
+    {
+      "role": "assistant",
+      "content": "已导出 9 条测试用例到 测试用例_20260312_151209.xlsx",
+      "timestamp": "2026-03-12T15:12:09.394951"
+    }
+  ],
+  "metadata": {}
+}
