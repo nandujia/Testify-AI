@@ -1,51 +1,35 @@
-"""
-导出技能
-"""
+"""Export skill"""
 
-from typing import Dict, Any, Optional
+from typing import Dict, Any
 from .base import BaseSkill, SkillResult
 from ..core.session import SessionState
 
 
 class ExportSkill(BaseSkill):
-    """导出测试用例"""
     
     name = "export"
     description = "导出测试用例到文件"
     triggers = ["导出", "下载", "保存"]
     
-    parameters = {
-        "format": {"required": False, "description": "导出格式 (xlsx/markdown/json)"}
-    }
+    parameters = {"format": {"required": False, "description": "导出格式"}}
     
-    def execute(
-        self,
-        params: Dict[str, Any],
-        session: SessionState
-    ) -> SkillResult:
-        """执行导出"""
-        
+    def execute(self, params: Dict[str, Any], session: SessionState) -> SkillResult:
         test_cases = session.test_cases
         
         if not test_cases:
             return SkillResult(
                 success=False,
                 error="没有可导出的测试用例",
-                suggestion="请先生成测试用例，发送「生成测试用例」"
+                suggestion="请先生成测试用例"
             )
         
         export_format = params.get("format", "xlsx")
         
-        # 执行导出
         try:
             file_path = self._export(test_cases, export_format)
         except Exception as e:
-            return SkillResult(
-                success=False,
-                error=f"导出失败: {str(e)}"
-            )
+            return SkillResult(success=False, error=f"导出失败: {str(e)}")
         
-        # 更新会话
         session.exported_files.append(file_path)
         
         import os
@@ -63,7 +47,6 @@ class ExportSkill(BaseSkill):
         )
     
     def _export(self, test_cases: list, export_format: str) -> str:
-        """执行导出"""
         from ..services.extractor.excel_exporter import ExcelExporter
         from datetime import datetime
         from pathlib import Path
@@ -76,36 +59,27 @@ class ExportSkill(BaseSkill):
         elif export_format == "markdown":
             export_dir = Path("./exports")
             export_dir.mkdir(parents=True, exist_ok=True)
-            
             timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
             file_path = export_dir / f"test_cases_{timestamp}.md"
-            
             content = self._generate_markdown(test_cases)
-            
             with open(file_path, "w", encoding="utf-8") as f:
                 f.write(content)
-            
             return str(file_path)
         
         elif export_format == "json":
             export_dir = Path("./exports")
             export_dir.mkdir(parents=True, exist_ok=True)
-            
             timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
             file_path = export_dir / f"test_cases_{timestamp}.json"
-            
             with open(file_path, "w", encoding="utf-8") as f:
                 json.dump(test_cases, f, ensure_ascii=False, indent=2)
-            
             return str(file_path)
         
         else:
-            # 默认 xlsx
             exporter = ExcelExporter()
             return exporter.export(test_cases)
     
     def _generate_markdown(self, test_cases: list) -> str:
-        """生成 Markdown"""
         from datetime import datetime
         
         lines = [

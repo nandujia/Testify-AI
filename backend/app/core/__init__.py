@@ -1,10 +1,7 @@
-"""
-Core 模块
-"""
+"""Core module"""
 
 from .session import SessionManager, SessionState
 from .intent_agent import IntentAgent, Intent, IntentResult
-from .orchestrator import Orchestrator
 
 __all__ = [
     "SessionManager",
@@ -12,5 +9,4 @@ __all__ = [
     "IntentAgent",
     "Intent",
     "IntentResult",
-    "Orchestrator",
 ]

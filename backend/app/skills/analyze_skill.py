@@ -1,6 +1,4 @@
-"""
-分析技能 - 分析原型链接
-"""
+"""Analyze skill - prototype analysis"""
 
 from typing import Dict, Any, Optional
 from .base import BaseSkill, SkillResult
@@ -8,70 +6,48 @@ from ..core.session import SessionState
 
 
 class AnalyzeSkill(BaseSkill):
-    """
-    分析原型链接
-    
-    参考 Test_Demand 设计理念：
-    - 分析 → 提取需求目录 → 整理需求文档
-    """
     
     name = "analyze"
     description = "分析原型设计链接，提取需求目录结构"
     triggers = ["分析", "看看", "提取需求", "解析原型"]
     
-    parameters = {
-        "url": {"required": True, "description": "原型链接URL"}
-    }
+    parameters = {"url": {"required": True, "description": "原型链接URL"}}
     
-    # 支持的平台
     PLATFORMS = {
-        "modao": {"name": "墨刀", "method": "api_listen", "coverage": "100%"},
-        "lanhu": {"name": "蓝湖", "method": "api+playwright", "coverage": "100%"},
-        "axure": {"name": "Axure Share", "method": "playwright", "coverage": "100%"},
-        "mokc": {"name": "幕客", "method": "playwright", "coverage": "100%"},
-        "figma": {"name": "Figma", "method": "api+playwright", "coverage": "100%"},
-        "jsdesign": {"name": "即时设计", "method": "playwright", "coverage": "100%"},
+        "modao": {"name": "墨刀", "coverage": "100%"},
+        "lanhu": {"name": "蓝湖", "coverage": "100%"},
+        "axure": {"name": "Axure Share", "coverage": "100%"},
+        "mokc": {"name": "幕客", "coverage": "100%"},
+        "figma": {"name": "Figma", "coverage": "100%"},
+        "jsdesign": {"name": "即时设计", "coverage": "100%"},
     }
     
-    def execute(
-        self,
-        params: Dict[str, Any],
-        session: SessionState
-    ) -> SkillResult:
-        """执行分析"""
+    def execute(self, params: Dict[str, Any], session: SessionState) -> SkillResult:
         url = params.get("url")
         
         if not url:
             return SkillResult(
                 success=False,
                 error="缺少URL参数",
-                suggestion="请提供原型链接，例如：分析 https://modao.cc/xxx"
+                suggestion="请提供原型链接"
             )
         
-        # 识别平台
         platform = self._identify_platform(url)
         
         if not platform:
             return SkillResult(
                 success=False,
                 error="无法识别平台",
-                suggestion="支持的平台：墨刀、蓝湖、Axure、幕客、Figma、即时设计"
+                suggestion="支持：墨刀、蓝湖、Axure、幕客、Figma、即时设计"
             )
         
-        # 执行爬取
         try:
             result = self._crawl(url, platform)
         except Exception as e:
-            return SkillResult(
-                success=False,
-                error=f"分析失败: {str(e)}",
-                suggestion="请检查链接是否正确，或稍后重试"
-            )
+            return SkillResult(success=False, error=f"分析失败: {str(e)}")
         
-        # 整理需求
         analysis = self._summarize_requirements(result.get("pages", []))
         
-        # 更新会话
         session.current_url = url
         session.current_platform = platform
         session.analyzed_pages = result.get("pages", [])
@@ -91,9 +67,7 @@ class AnalyzeSkill(BaseSkill):
         )
     
     def _identify_platform(self, url: str) -> Optional[str]:
-        """识别平台"""
         import re
-        
         patterns = {
             "modao": [r"modao\.cc"],
             "lanhu": [r"lanhuapp\.com"],
@@ -102,7 +76,6 @@ class AnalyzeSkill(BaseSkill):
             "figma": [r"figma\.com"],
             "jsdesign": [r"js\.design"],
         }
-        
         for platform, pattern_list in patterns.items():
             for pattern in pattern_list:
                 if re.search(pattern, url):
@@ -110,52 +83,18 @@ class AnalyzeSkill(BaseSkill):
         return None
     
     def _crawl(self, url: str, platform: str) -> Dict[str, Any]:
-        """执行爬取"""
-        from ..services.crawler.modao_crawler import ModaoCrawler, identify_platform, crawl_url
-        
+        from ..services.crawler.modao_crawler import ModaoCrawler, crawl_url
         if platform == "modao":
             crawler = ModaoCrawler()
             return crawler.crawl(url)
-        else:
-            # 其他平台使用通用爬虫
-            return crawl_url(url)
+        return crawl_url(url)
     
     def _summarize_requirements(self, pages: list) -> str:
-        """整理需求"""
         if not pages:
             return ""
         
-        if not self.llm:
-            # 无 LLM 时使用简单统计
-            return self._simple_summary(pages)
-        
-        # 使用 LLM 整理
-        import json
         page_names = [p.get("name", "") for p in pages]
         
-        prompt = f"""根据以下页面列表，整理需求文档：
-
-页面列表：
-{json.dumps(page_names, ensure_ascii=False, indent=2)}
-
-请输出：
-1. 需求模块划分（按功能分类）
-2. 核心功能点
-3. 建议的测试重点
-
-格式要求：简洁、清晰、分点列出。
-"""
-        
-        try:
-            return self.llm.chat([{"role": "user", "content": prompt}])
-        except:
-            return self._simple_summary(pages)
-    
-    def _simple_summary(self, pages: list) -> str:
-        """简单摘要"""
-        page_names = [p.get("name", "") for p in pages]
-        
-        # 提取模块关键词
         modules = set()
         for name in page_names:
             for keyword in ["登录", "注册", "用户", "订单", "支付", "消息", "设置", "首页"]:
