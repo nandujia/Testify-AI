@@ -19,7 +19,39 @@ class CustomLLM(BaseLLM):
     - custom: 完全自定义请求/响应
     """
     
-    def __init__(self, profile: LLMProfile):
+    def __init__(self, profile):
+        from ..models.llm_config import LLMProfile, LLMProtocol
+        from .base import LLMConfig
+        
+        self.profile = profile
+        self.config = LLMConfig(
+            model_name=profile.model_name,
+            api_type="custom",
+            api_key=profile.api_key or "",
+            base_url=profile.base_url,
+            temperature=profile.temperature,
+            max_tokens=profile.max_tokens
+        )
+        self.protocol = getattr(profile, 'protocol', None)
+        if isinstance(self.protocol, str):
+            self.protocol = LLMProtocol(self.protocol) if self.protocol in [e.value for e in LLMProtocol] else LLMProtocol.OPENAI_COMPATIBLE
+    
+    @classmethod
+    def from_config(cls, config):
+        """从 LLMConfig 创建"""
+        from ..models.llm_config import LLMProfile, LLMProtocol
+        
+        profile = LLMProfile(
+            id="temp",
+            name=config.model_name,
+            model_name=config.model_name,
+            api_key=config.api_key,
+            base_url=config.base_url or "",
+            temperature=config.temperature,
+            max_tokens=config.max_tokens,
+            protocol=LLMProtocol.OPENAI_COMPATIBLE
+        )
+        return cls(profile)
         self.profile = profile
         self.config = LLMConfig(
             model_name=profile.model_name,
