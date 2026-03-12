@@ -1,23 +1,10 @@
 """
-API 模块
+API模块 | API Module
+
+提供RESTful API接口
+Provides RESTful API interfaces.
 """
 
-from . import crawl
-from . import generate
-from . import export
-from . import agent
-from . import knowledge
-from . import chat
-from . import config
-from . import learning
+from . import analyze
 
-__all__ = [
-    "crawl",
-    "generate",
-    "export",
-    "agent",
-    "knowledge",
-    "chat",
-    "config",
-    "learning",
-]
+__all__ = ["analyze"]
