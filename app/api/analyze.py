@@ -5,9 +5,10 @@
 Provides async analysis API with progress tracking.
 """
 
-from fastapi import APIRouter, BackgroundTasks, HTTPException
+import logging
+from fastapi import APIRouter, BackgroundTasks, HTTPException, Request, Depends
 from fastapi.responses import JSONResponse
-from pydantic import BaseModel, HttpUrl
+from pydantic import BaseModel, HttpUrl, validator
 from typing import Optional, List
 from datetime import datetime
 import uuid
@@ -16,7 +17,9 @@ from app.core.engine import Engine
 from app.platforms.registry import PlatformRegistry
 from app.services.async_tasks import get_task_manager
 from app.llm import LLMFactory
+from app.utils.security import sanitize_url
 
+logger = logging.getLogger(__name__)
 
 router = APIRouter()
 
@@ -25,9 +28,24 @@ router = APIRouter()
 
 class AnalyzeRequest(BaseModel):
     """分析请求 | Analyze Request"""
-    url: HttpUrl
+    url: str  # 使用str而非HttpUrl，以便自定义验证
     pages: Optional[List[str]] = None
     llm_type: Optional[str] = None  # glm, gpt, qwen, ernie, custom
+    
+    @validator('url')
+    def validate_url(cls, v):
+        """验证并清理URL"""
+        try:
+            return sanitize_url(v)
+        except ValueError as e:
+            raise ValueError(str(e))
+    
+    @validator('pages', each_item=True)
+    def validate_pages(cls, v):
+        """验证页面名称"""
+        if len(v) > 100:
+            raise ValueError('页面名称过长')
+        return v
 
 
 class AnalyzeResponse(BaseModel):
