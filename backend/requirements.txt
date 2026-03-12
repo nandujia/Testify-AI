@@ -1,17 +1,35 @@
 # DemandTest Platform - Backend Requirements
+# Version: 3.0.0
 
 # Web Framework
 fastapi==0.109.0
 uvicorn[standard]==0.27.0
+pydantic==2.5.3
 pydantic-settings==2.1.0
+
+# HTTP Client
+requests==2.31.0
+httpx==0.26.0
 
 # Crawler
 playwright==1.41.0
-requests==2.31.0
 
 # Excel Export
 openpyxl==3.1.2
 
-# OCR (Optional)
+# Markdown
+markdown==3.5.2
+
+# Environment
+python-dotenv==1.0.0
+
+# Vector Store (for RAG)
+# chromadb==0.4.22
+# faiss-cpu==1.7.4
+
+# Embeddings (for RAG)
+# sentence-transformers==2.2.2
+
+# OCR (Optional - requires visual model API)
 # paddleocr==2.7.0
 # paddlepaddle==2.6.0
