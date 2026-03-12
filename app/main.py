@@ -1,6 +1,7 @@
 """
-DemandTest Platform - Main Entry
-低侵入式产研数据转换器 | Non-Intrusive Product-Research Data Transformer
+智测AI (Testify AI) - Main Entry
+基于多模态大模型的开源自动化测试工具
+Open-Source Automated Testing Tool Based on Multimodal LLM
 
 版本 Version: 3.1.0-dev
 """
@@ -18,8 +19,8 @@ async def lifespan(app: FastAPI):
     """应用生命周期 | Application lifecycle"""
     # 启动时 Startup
     print("\n" + "="*60)
-    print("DemandTest Platform v3.1.0-dev")
-    print("低侵入式产研数据转换器")
+    print("智测AI (Testify AI) v3.1.0-dev")
+    print("基于多模态大模型的开源自动化测试工具")
     print("="*60)
     print(f"已注册平台 Registered platforms: {len(PlatformRegistry._platforms)}")
     for p in PlatformRegistry.list_platforms():
@@ -30,18 +31,24 @@ async def lifespan(app: FastAPI):
     
     # 关闭时 Shutdown
     print("\n" + "="*60)
-    print("DemandTest Platform shutting down...")
+    print("智测AI (Testify AI) shutting down...")
     print("="*60 + "\n")
 
 
 app = FastAPI(
-    title="DemandTest Platform",
+    title="智测AI (Testify AI)",
     description="""
-## 低侵入式产研数据转换器 | Non-Intrusive Product-Research Data Transformer
+## 基于多模态大模型的开源自动化测试工具
 
-智能测试用例生成平台，支持墨刀、蓝湖、Figma等原型设计工具。
+智测AI（Testify AI）支持原型解析、需求结构化、自动用例生成、多格式导出等全流程能力。
 
-### 核心特性 Core Features:
+### 核心能力 Core Capabilities:
+- 🔍 原型解析（墨刀、蓝湖、Figma）
+- 📋 需求结构化
+- 🤖 自动用例生成
+- 📊 多格式导出（Excel、JSON、Markdown）
+
+### 特性 Features:
 - 🔍 协议级数据提取（Network Interception）
 - 🤖 结构化LLM输出（Pydantic）
 - 🧠 影子运行自学习（Few-Shot）
@@ -84,15 +91,15 @@ app.include_router(analyze.router, prefix="/api/v1", tags=["分析 Analysis"])
 async def root():
     """根路径 | Root endpoint"""
     return {
-        "name": "DemandTest Platform",
+        "name": "智测AI (Testify AI)",
         "version": "3.1.0-dev",
-        "description": "低侵入式产研数据转换器 | Non-Intrusive Product-Research Data Transformer",
+        "description": "基于多模态大模型的开源自动化测试工具 | Open-Source Automated Testing Tool Based on Multimodal LLM",
         "docs": "/docs",
-        "features": [
-            "协议级数据提取 | Protocol-level data extraction",
-            "结构化LLM输出 | Structured LLM output",
-            "影子运行自学习 | Shadow learning",
-            "全链路异步化 | Full async pipeline"
+        "capabilities": [
+            "原型解析 | Prototype Parsing",
+            "需求结构化 | Requirement Structuring",
+            "自动用例生成 | Auto Test Case Generation",
+            "多格式导出 | Multi-format Export"
         ],
         "platforms": PlatformRegistry.list_platforms()
     }
